@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { XellarKitProvider } from "@xellar/kit";
+import { Web3Provider } from "@/providers/Web3Provider";
 
 const inter = Inter({ 
   subsets: ["latin"],
@@ -67,30 +67,20 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
       </head>
-      <body className={`${inter.variable} font-sans`}>
-        <XellarKitProvider>
-          <div className="min-h-screen flex flex-col bg-primary">
-            {/* Background elements */}
-            <div className="fixed inset-0 overflow-hidden opacity-10">
-              <div className="absolute inset-0 bg-[url('/images/geometric-pattern.svg')] bg-repeat opacity-5"></div>
-              <div className="absolute top-1/4 right-0 w-64 h-64 bg-accent/10 rounded-full mix-blend-multiply filter blur-3xl animate-blob"></div>
-              <div className="absolute top-1/3 left-0 w-72 h-72 bg-trust/10 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000"></div>
-            </div>
+      <body className={`${inter.variable} font-sans bg-background text-foreground min-h-screen flex flex-col`}>
+        <Web3Provider>
+          <div className="flex-1 flex flex-col">
+            {children}
             
-            {/* Main content */}
-            <main className="relative flex-1">
-              {children}
-            </main>
-            
-            {/* Footer */}
-            <footer className="py-6 border-t border-accent/10">
+            {/* Global Footer */}
+            <footer className="py-6 border-t border-accent/10 mt-auto">
               <div className="container mx-auto px-4 text-center text-text-secondary">
                 <p className="text-sm">© {new Date().getFullYear()} QRBN.app - All rights reserved</p>
                 <p className="text-xs mt-2 opacity-75">Shariah-compliant donations powered by blockchain technology</p>
               </div>
             </footer>
           </div>
-        </XellarKitProvider>
+        </Web3Provider>
       </body>
     </html>
   );

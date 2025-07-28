@@ -1,20 +1,31 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap');
 
 @layer base {
+  :root {
+    --background: #071a12;
+    --foreground: #f0fdf4;
+    --primary: #071a12;
+    --primary-foreground: #f0fdf4;
+    --accent: #14532d;
+    --accent-foreground: #f0fdf4;
+    --trust: #d1b86a;
+    --trust-foreground: #1a1a1a;
+  }
+
   html {
     @apply scroll-smooth;
   }
   
   body {
-    @apply bg-primary text-text-primary font-sans antialiased;
+    @apply bg-background text-foreground font-sans antialiased min-h-screen;
   }
   
   h1, h2, h3, h4, h5, h6 {
-    @apply font-bold leading-tight tracking-tight;
+    @apply font-bold leading-tight tracking-tight text-foreground;
   }
   
   h1 {
@@ -40,11 +51,11 @@
   }
   
   ::-webkit-scrollbar-track {
-    @apply bg-primary-dark;
+    @apply bg-primary/20;
   }
   
   ::-webkit-scrollbar-thumb {
-    @apply bg-accent rounded-full hover:bg-accent-light transition-colors;
+    @apply bg-accent/50 rounded-full hover:bg-accent/70 transition-colors;
   }
 }
 
@@ -56,10 +67,4 @@
 
 .animate-float {
   animation: float 6s ease-in-out infinite;
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
 }
