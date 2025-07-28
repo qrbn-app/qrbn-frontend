@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Check } from 'lucide-react';
+import { Check, Info } from 'lucide-react';
 
 interface QurbanTypeStepProps {
   selectedType: string;
@@ -35,8 +35,8 @@ const QurbanTypeStep = ({ selectedType, onSelectType }: QurbanTypeStepProps) => 
   return (
     <div className="space-y-8">
       <div className="text-center">
-        <h2 className="text-2xl font-bold mb-2">Select Qurban Type</h2>
-        <p className="text-text-secondary">
+        <h2 className="text-3xl font-bold mb-3 text-foreground">Select Qurban Type</h2>
+        <p className="text-lg text-text-secondary">
           Choose the type of Qurban you'd like to perform
         </p>
       </div>
@@ -45,33 +45,35 @@ const QurbanTypeStep = ({ selectedType, onSelectType }: QurbanTypeStepProps) => 
         {qurbanTypes.map((type) => (
           <motion.button
             key={type.id}
-            whileHover={{ y: -5 }}
+            whileHover={{ y: -5, boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)' }}
             whileTap={{ scale: 0.98 }}
             onClick={() => onSelectType(type.id)}
             disabled={type.comingSoon}
-            className={`relative p-6 rounded-xl border-2 text-left transition-all duration-200 ${
+            className={`relative p-8 rounded-xl border-2 text-left transition-all duration-300 ${
               selectedType === type.id
-                ? 'border-trust bg-trust/5'
-                : 'border-accent/20 hover:border-trust/50'
-            } ${type.comingSoon ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer'}`}
+                ? 'border-trust bg-trust/5 shadow-lg shadow-trust/10'
+                : 'border-accent/20 hover:border-trust/50 bg-primary/30 backdrop-blur-sm'
+            } ${type.comingSoon ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer hover:shadow-md'}`}
+            aria-label={`Select ${type.title} for ${type.price}`}
           >
             {selectedType === type.id && (
-              <div className="absolute -top-3 -right-3 bg-trust text-primary w-8 h-8 rounded-full flex items-center justify-center">
+              <div className="absolute -top-3 -right-3 bg-trust text-primary-foreground w-10 h-10 rounded-full flex items-center justify-center shadow-md">
                 <Check className="w-5 h-5" />
               </div>
             )}
             
             {type.comingSoon && (
-              <div className="absolute top-2 right-2 bg-accent/10 text-text-secondary text-xs px-2 py-1 rounded">
+              <div className="absolute top-3 right-3 bg-accent/20 text-foreground text-xs font-medium px-3 py-1 rounded-full backdrop-blur-sm">
                 Coming Soon
               </div>
             )}
             
-            <div className="w-16 h-16 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+            <div className="w-20 h-20 bg-accent/10 rounded-xl flex items-center justify-center mb-6 mx-auto">
               <img 
                 src={type.image} 
-                alt={type.title} 
-                className="w-10 h-10 object-contain"
+                alt="" 
+                role="presentation"
+                className="w-12 h-12 object-contain transition-transform duration-300 group-hover:scale-110"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
                   target.src = '/images/placeholder-icon.svg';
@@ -79,12 +81,12 @@ const QurbanTypeStep = ({ selectedType, onSelectType }: QurbanTypeStepProps) => 
               />
             </div>
             
-            <h3 className="text-xl font-semibold mb-1">{type.title}</h3>
-            <p className="text-text-secondary text-sm mb-3">{type.description}</p>
-            <div className="text-trust font-medium">{type.price}</div>
+            <h3 className="text-xl font-bold mb-2 text-foreground">{type.title}</h3>
+            <p className="text-text-secondary mb-4">{type.description}</p>
+            <div className="text-2xl font-bold text-trust mb-2">{type.price}</div>
             
             {type.id === 'cow' && (
-              <div className="mt-3 text-xs text-text-secondary">
+              <div className="mt-3 text-sm text-text-secondary bg-accent/5 p-2 rounded-lg">
                 * Share of a cow (1 person = 1/7)
               </div>
             )}
@@ -92,12 +94,27 @@ const QurbanTypeStep = ({ selectedType, onSelectType }: QurbanTypeStepProps) => 
         ))}
       </div>
 
-      <div className="mt-8 p-4 bg-accent/5 rounded-lg border border-accent/10">
-        <h4 className="font-semibold mb-2">About Qurban</h4>
-        <p className="text-sm text-text-secondary">
-          Qurban is an Islamic practice of sacrificing an animal for the sake of Allah during Eid al-Adha. 
-          The meat is distributed to those in need, with portions for yourself, family, and the less fortunate.
-        </p>
+      <div className="mt-12 p-6 bg-accent/5 rounded-xl border border-accent/10 backdrop-blur-sm">
+        <div className="flex items-start">
+          <div className="bg-trust/10 p-3 rounded-lg mr-4">
+            <Info className="w-6 h-6 text-trust" />
+          </div>
+          <div>
+            <h4 className="font-bold text-lg text-foreground mb-2">About Qurban</h4>
+            <p className="text-text-secondary">
+              Qurban is an Islamic practice of sacrificing an animal for the sake of Allah during Eid al-Adha. 
+              The meat is distributed to those in need, with portions for yourself, family, and the less fortunate.
+            </p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-trust/10 text-trust">
+                Sunnah of Prophet Ibrahim
+              </span>
+              <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-trust/10 text-trust">
+                Eid al-Adha Ritual
+              </span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
