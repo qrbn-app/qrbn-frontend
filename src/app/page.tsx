@@ -1,3 +1,6 @@
+import Hero from "@/components/landing/Hero";
+import DonationOptions from "@/components/landing/DonationOptions";
+import Features from "@/components/landing/Features";
 import Image from "next/image";
 
 export default function Home() {
@@ -12,6 +15,85 @@ export default function Home() {
           height={38}
           priority
         />
+        <Hero />
+        <DonationOptions />
+        <Features />
+        
+        {/* Testimonials Section */}
+        <section className="py-20 bg-primary/50">
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                What Our <span className="text-trust">Community</span> Says
+              </h2>
+              <p className="text-text-secondary">
+                Join thousands of satisfied users who trust QRBN.app for their Zakat and Qurban needs.
+              </p>
+            </div>
+            
+            <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+              {[
+                {
+                  quote: "The transparency of the platform gave me confidence in where my Zakat was going. The NFT proof is a game-changer!",
+                  author: "Ahmad S.",
+                  role: "Donor since 2023"
+                },
+                {
+                  quote: "As someone who values Islamic finance principles, I appreciate how QRBN.app ensures Shariah compliance at every step.",
+                  author: "Fatima K.",
+                  role: "Community Member"
+                },
+                {
+                  quote: "The Qurban process was seamless, and receiving the NFT certificate made the experience even more special.",
+                  author: "Yusuf M.",
+                  role: "Donor"
+                }
+              ].map((testimonial, index) => (
+                <div 
+                  key={index}
+                  className="bg-primary/30 backdrop-blur-sm p-6 rounded-xl border border-accent/10 hover:border-accent/30 transition-all duration-300"
+                >
+                  <div className="text-trust text-4xl mb-4">"</div>
+                  <p className="text-text-primary mb-6 italic">{testimonial.quote}</p>
+                  <div className="mt-auto">
+                    <div className="font-medium">{testimonial.author}</div>
+                    <div className="text-sm text-text-secondary">{testimonial.role}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+        
+        {/* CTA Section */}
+        <section className="py-20 relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-r from-accent/5 to-trust/5"></div>
+          <div className="container mx-auto px-4 relative">
+            <div className="max-w-4xl mx-auto text-center bg-primary/50 backdrop-blur-sm p-8 md:p-12 rounded-2xl border border-accent/10">
+              <h2 className="text-3xl md:text-4xl font-bold mb-6">
+                Ready to Make a <span className="text-trust">Difference</span>?
+              </h2>
+              <p className="text-xl text-text-secondary mb-8 max-w-2xl mx-auto">
+                Join our community of donors and experience transparent, Shariah-compliant giving today.
+              </p>
+              <div className="flex flex-col sm:flex-row justify-center gap-4">
+                <a 
+                  href="/zakat" 
+                  className="px-8 py-4 bg-accent text-primary font-semibold rounded-lg hover:bg-accent/90 transition-colors"
+                >
+                  Pay Zakat
+                </a>
+                <a 
+                  href="/qurban" 
+                  className="px-8 py-4 border border-accent/30 text-text-primary font-semibold rounded-lg hover:bg-accent/10 transition-colors"
+                >
+                  Donate Qurban
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+        
         <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
           <li className="mb-2 tracking-[-.01em]">
             Get started by editing{" "}
